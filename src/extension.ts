@@ -10,7 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.TaskScope.Workspace,
 				"Test Task",
 				"tasktype",
-				new vscode.ProcessExecution("echo", ["hello"])
+				new vscode.ShellExecution("echo", ["hello"])
 			);
 			task.presentationOptions = {
 				showReuseMessage: false,
