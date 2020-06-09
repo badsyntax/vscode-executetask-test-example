@@ -20,13 +20,13 @@ export function activate(context: vscode.ExtensionContext) {
 				panel: vscode.TaskPanelKind.Shared,
 				reveal: vscode.TaskRevealKind.Silent,
 			};
-			vscode.tasks.onDidStartTaskProcess((event) => {
+			context.subscriptions.push(vscode.tasks.onDidStartTaskProcess((event) => {
 				const isMyTask = event.execution.task.name === task.name;
 				if (isMyTask) {
 					console.log("task started");
 					resolve();
 				}
-			});
+			}));
 			vscode.tasks.executeTask(task).then(
 				() => {
 					console.log("executed task");
