@@ -15,10 +15,4 @@ describe('Extension Test Suite 1', () => {
 		await extensionApi.promise;
 		assert.ok(true);
 	});
-
-	it('Sample test 2', async () => {
-		const extensionApi = extension!.exports;
-		await extensionApi.promise;
-		assert.ok(true);
-	});
 });

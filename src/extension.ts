@@ -10,23 +10,27 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.TaskScope.Workspace,
 				"Test Task",
 				"tasktype",
-				new vscode.ShellExecution("echo", ["hello"])
+				new vscode.ShellExecution("read")
 			);
 			task.presentationOptions = {
-				showReuseMessage: false,
-				clear: true,
-				echo: false,
-				focus: false,
-				panel: vscode.TaskPanelKind.Shared,
-				reveal: vscode.TaskRevealKind.Silent,
+				reveal: vscode.TaskRevealKind.Silent, // onDidEndTaskProcess not called when terminal closed
+				// reveal: vscode.TaskRevealKind.Always, // onDidEndTaskProcess is called when terminal closed
 			};
-			context.subscriptions.push(vscode.tasks.onDidStartTaskProcess((event) => {
-				const isMyTask = event.execution.task.name === task.name;
-				if (isMyTask) {
-					console.log("task started");
-					resolve();
-				}
-			}));
+			context.subscriptions.push(
+				vscode.tasks.onDidStartTaskProcess((event) => {
+					const isMyTask = event.execution.task.name === task.name;
+					if (isMyTask) {
+						console.log("task started");
+						resolve();
+					}
+				}),
+				vscode.tasks.onDidEndTaskProcess((event) => {
+					const isMyTask = event.execution.task.name === task.name;
+					if (isMyTask) {
+						console.log("task ended");
+					}
+				})
+			);
 			vscode.tasks.executeTask(task).then(
 				() => {
 					console.log("executed task");
