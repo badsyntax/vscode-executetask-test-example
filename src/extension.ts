@@ -21,7 +21,6 @@ export function activate(context: vscode.ExtensionContext) {
 					const isMyTask = event.execution.task.name === task.name;
 					if (isMyTask) {
 						console.log("task started");
-						resolve();
 					}
 				}),
 				vscode.tasks.onDidEndTaskProcess((event) => {
