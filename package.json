@@ -31,5 +31,12 @@
 		"typescript": "^3.3.1",
 		"vscode-test": "^1.4.0"
 	},
-	"dependencies": {}
+	"dependencies": {},
+	"contributes": {
+		"taskDefinitions": [
+			{
+				"type": "tasktype"
+			}
+		]
+	}
 }

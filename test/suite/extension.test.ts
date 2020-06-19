@@ -11,8 +11,8 @@ describe('Extension Test Suite 1', () => {
 	});
 
 	it('Sample test', async () => {
-		const extensionApi = extension!.exports;
-		await extensionApi.promise;
-		assert.ok(true);
+		const tasks = (await vscode.tasks.fetchTasks({ type: 'tasktype' }));
+		const task = tasks.find(({name}) => name === 'Test Task');
+		assert.ok(task);		
 	});
 });
